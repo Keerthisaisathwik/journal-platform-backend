@@ -17,7 +17,7 @@ import java.util.Optional;
 public class JournalEntryController_V2 {
 
     @Autowired
-    public JournalEntryService journalEntryService;
+    private JournalEntryService journalEntryService;
 
     @GetMapping()
     public ResponseEntity<List<JournalEntry>> getAll() {
