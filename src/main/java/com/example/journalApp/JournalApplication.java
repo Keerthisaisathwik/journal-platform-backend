@@ -14,7 +14,7 @@ public class JournalApplication {
 
 	public static void main(String[] args) {
 		System.setProperty("spring.data.mongodb.uri",
-				"mongodb+srv://cluster:cluster12345@cluster0.kcdxtpw.mongodb.net/journaldb?retryWrites=true&w=majority&appName=Cluster0");
+				"mongodb+srv://nahovig506:cLxkpdk3GnIUeTuk@cluster0.5hk1byf.mongodb.net/journaldb?retryWrites=true&w=majority&appName=Cluster0");
 		SpringApplication.run(JournalApplication.class, args);
 	}
 
