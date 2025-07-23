@@ -44,9 +44,9 @@ public class SpringSecurity {
 //                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 //                this corsConfigurationSource() is written below. I am still studying more about it so, I commented this code.
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/journal","/journal/**").authenticated()
+                        .requestMatchers("/user", "/user/**").authenticated()
                         .requestMatchers("/public", "/public/**").permitAll()
-                        .requestMatchers("/journal/**").authenticated()
-                        .requestMatchers("/user/**").authenticated()
                 )
 //                .exceptionHandling(ex -> ex.authenticationEntryPoint(point)) currently not needed but used this line in DFH
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).httpBasic(Customizer.withDefaults());

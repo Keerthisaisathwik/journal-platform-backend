@@ -40,7 +40,7 @@ public class UserController {
         User userDb = userRepository.findByUsername(username);
         userDb.setUsername(user.getUsername());
         userDb.setPassword(user.getPassword());
-        userService.saveEntry(userDb);
+        userService.saveUser(userDb);
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
     }
 
