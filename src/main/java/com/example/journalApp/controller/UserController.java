@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -28,8 +29,10 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAll();
+    public User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userService.findByUsername(username);
     }
 
     @PutMapping()
@@ -38,9 +41,14 @@ public class UserController {
         String username = authentication.getName();
 
         User userDb = userRepository.findByUsername(username);
+        List<String> admin = userDb.getRoles().stream().filter(x -> x.equals("ADMIN")).collect(Collectors.toList());
         userDb.setUsername(user.getUsername());
         userDb.setPassword(user.getPassword());
-        userService.saveUser(userDb);
+        //logic to ensure admins don't go to user role when updated.
+        if(admin.isEmpty()){
+            userService.createUser(userDb);
+        }
+        userService.createAdmin(userDb);
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
     }
 

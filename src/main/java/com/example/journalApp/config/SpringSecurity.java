@@ -46,6 +46,7 @@ public class SpringSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/journal","/journal/**").authenticated()
                         .requestMatchers("/user", "/user/**").authenticated()
+                        .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/public", "/public/**").permitAll()
                 )
 //                .exceptionHandling(ex -> ex.authenticationEntryPoint(point)) currently not needed but used this line in DFH
